@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login">
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="-1dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/banuby" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="412dp"
+        android:layout_height="216dp"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="-1dp"
+        android:background="#42485E"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="Correo"
+            android:inputType="text"
+            android:translationX="100px"
+            android:translationY="100px" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:translationX="100px"
+            android:translationY="150px" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50px"
+            android:text="Entrar"
+            android:textSize="24sp"
+            android:translationX="100px"
+            android:translationY="150px" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="148dp"
+        android:layout_height="29dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="133dp"
+        android:layout_marginBottom="204dp"
+        android:gravity="center"
+        android:text="Recuperar cuenta"
+        android:textColor="#42485E"
+        android:textSize="16sp" />
+
+    <!--> para pruebas <!-->
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone" />
+
+</RelativeLayout>
