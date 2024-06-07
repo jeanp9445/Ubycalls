@@ -1,8 +1,8 @@
 package com.example.ubycalls;
 
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private CalendarView calendarView;
 
     private SQLiteDatabase database;
-    private static final String DATABASE_NAME = "TimeTrackingDB";
-    private static final String TABLE_NAME = "TimeRecords";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,20 +31,9 @@ public class MainActivity extends AppCompatActivity {
         btnTimeOut = findViewById(R.id.btnTimeOut);
         calendarView = findViewById(R.id.calendarView);
 
-        SQLiteOpenHelper helper = new SQLiteOpenHelper(this, DATABASE_NAME, null, 1) {
-            @Override
-            public void onCreate(SQLiteDatabase db) {
-                db.execSQL("CREATE TABLE " + TABLE_NAME + " (id INTEGER PRIMARY KEY AUTOINCREMENT, date TEXT, time_in TEXT, time_out TEXT)");
-            }
-
-            @Override
-            public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-                onCreate(db);
-            }
-        };
-
-        database = helper.getWritableDatabase();
+        // Crear o abrir la base de datos
+        AdminDataBase dbHelper = new AdminDataBase(this);
+        database = dbHelper.getWritableDatabase();
 
         btnTimeIn.setOnClickListener(v -> pickTime(tvTimeIn, "time_in"));
         btnTimeOut.setOnClickListener(v -> pickTime(tvTimeOut, "time_out"));
@@ -84,7 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveTime(String timeType, String time) {
         String date = new java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new java.util.Date());
-        database.execSQL("INSERT INTO " + TABLE_NAME + " (date, " + timeType + ") VALUES (?, ?)", new Object[]{date, time});
+
+        // Crear un nuevo ContentValues para almacenar los datos
+        ContentValues values = new ContentValues();
+        values.put("date", date);
+        values.put(timeType, time);
+
+        // Insertar los valores en la base de datos
+        database.insert("TimeRecords", null, values);
     }
 
     private boolean isSameWeek(Calendar selectedDate, Calendar currentDate) {
@@ -97,3 +91,4 @@ public class MainActivity extends AppCompatActivity {
         return !selectedDate.before(startOfWeek) && !selectedDate.after(endOfWeek);
     }
 }
+
